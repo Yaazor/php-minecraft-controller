@@ -1,0 +1,20 @@
+{
+  "name": "yazor/php-minecraft-controller",
+  "description": "PHP package which hooks into Minecraft's JSON RPC protocol in order to execute methods on the server",
+  "minimum-stability": "dev",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Yazor",
+      "email": "yazor@herobrine.fr"
+    }
+  ],
+  "require": {
+    "php": ">=8.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Yazor\\MinecraftProtocol\\": "src/"
+    }
+  }
+}
