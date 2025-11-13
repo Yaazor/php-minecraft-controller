@@ -22,7 +22,7 @@ class ResourceLocation
         $this->value = $value;
     }
 
-    public function with_param(string $param): ResourceLocation {
+    public function withParam(string $param): ResourceLocation {
         return self::create($this->namespace, $this->value.$param);
     }
 

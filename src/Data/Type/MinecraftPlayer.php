@@ -8,11 +8,11 @@ readonly class MinecraftPlayer
     {
     }
 
-    public static function from_username(string $username): MinecraftPlayer {
+    public static function fromUsername(string $username): MinecraftPlayer {
         return new MinecraftPlayer(null, $username);
     }
 
-    public static function from_uuid(string $uuid): MinecraftPlayer {
+    public static function fromUuid(string $uuid): MinecraftPlayer {
         return new MinecraftPlayer($uuid, null);
     }
 }
