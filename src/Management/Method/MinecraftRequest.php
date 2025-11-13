@@ -45,19 +45,30 @@ class MinecraftRequest
     }
 
     public function applyResult(mixed $result, Serializer $serializer): void {
-        $unserializeClass = $this->method->outputClassName;
+        $unserializeClass = "";
+        $list = false;
+        if(!empty($this->method->expectedClasses)) {
+            $unserializeClass = $this->method->expectedClasses['class'] ?? "";
+            $list = $this->method->expectedClasses['list'] ?? false;
+        }
 
-        if($this->method->receives_array) {
-            $finalResult = [];
-            foreach($result as $item) {
-                $finalResult[] = $serializer->deserialize(json_encode($item), $unserializeClass, 'json');
+        if(strlen($unserializeClass) > 0) {
+            if($list) {
+                $finalResult = [];
+                foreach($result as $item) {
+                    $finalResult[] = $serializer->deserialize(json_encode($item), $unserializeClass, 'json');
+                }
+            }else{
+                $finalResult = $serializer->deserialize(json_encode($result), $unserializeClass, 'json');
             }
         }else{
-            $finalResult = $serializer->deserialize(json_encode($result), $unserializeClass, 'json');
+            $finalResult = $result;
         }
 
         $this->result = $finalResult;
     }
+
+
 
     /**
      * @return TOuput|null

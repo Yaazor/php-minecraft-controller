@@ -2,9 +2,10 @@
 
 namespace Yazor\MinecraftProtocol\Data\Type;
 
+use JsonSerializable;
 use Yazor\MinecraftProtocol\Data\Type\Text\Translatable;
 
-class Message implements \JsonSerializable
+class Message implements JsonSerializable
 {
 
     public function __construct(public ?string $literal = null, public ?Translatable $translatable = null)

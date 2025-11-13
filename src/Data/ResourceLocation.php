@@ -2,6 +2,8 @@
 
 namespace Yazor\MinecraftProtocol\Data;
 
+use Yazor\MinecraftProtocol\Management\ProtocolPath;
+
 /**
  * <p>Represents a Minecraft resource location.</p>
  * <p>Equivalent to Kyori's <code>Key</code> class.</p>
@@ -22,8 +24,10 @@ class ResourceLocation
         $this->value = $value;
     }
 
-    public function withParam(string $param): ResourceLocation {
-        return self::create($this->namespace, $this->value.$param);
+    public function withParam(ProtocolPath|string $param): ResourceLocation {
+        $append = $param;
+        if($param instanceof ProtocolPath) $append = $param->value;
+        return self::create($this->namespace, $this->value.$append);
     }
 
     public static function create(string $namespace, string $value): self {
