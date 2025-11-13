@@ -1,5 +1,5 @@
 {
-  "name": "yazor/php-minecraft-controller",
+  "name": "yazor/minecraft-rpc",
   "description": "PHP package which hooks into Minecraft's JSON RPC protocol in order to execute methods on the server",
   "minimum-stability": "dev",
   "type": "library",
