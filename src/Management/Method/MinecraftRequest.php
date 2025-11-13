@@ -13,7 +13,12 @@ class MinecraftRequest implements \JsonSerializable
      */
     private $input;
 
-    public function __construct(private readonly ServerMethod $method)
+    /**
+     * @var TOuput|null
+     */
+    private $result = null;
+
+    public function __construct(public readonly ServerMethod $method)
     {
     }
 
@@ -35,5 +40,34 @@ class MinecraftRequest implements \JsonSerializable
         if(!empty($this->input)) $data['params'] = $this->input;
 
         return $data;
+    }
+
+    public function applyResult(mixed $result): void {
+        $unserializeClass = $this->method->outputClassName;
+
+        if($this->method->receives_array) {
+            $finalResult = [];
+            foreach($result as $item) {
+                $finalResult[] = $this->unserializeItem($item, $unserializeClass);
+            }
+        }else{
+            $finalResult = $this->unserializeItem($result, $unserializeClass);
+        }
+
+        $this->result = $finalResult;
+    }
+
+    /**
+     * @return TOuput|null
+     */
+    public function result() {
+        return $this->result;
+    }
+
+    private function unserializeItem(mixed $object, string $className): object {
+        return unserialize(
+            $object,
+            [$className]
+        );
     }
 }

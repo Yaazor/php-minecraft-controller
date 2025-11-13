@@ -10,7 +10,8 @@
     }
   ],
   "require": {
-    "php": ">=8.4"
+    "php": ">=8.4",
+    "phrity/websocket": "dev-v3.6-main"
   },
   "autoload": {
     "psr-4": {
