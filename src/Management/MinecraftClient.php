@@ -14,6 +14,10 @@ use WebSocket\Client;
 use Yazor\MinecraftProtocol\Management\Method\MinecraftRequest;
 use Yazor\MinecraftProtocol\Management\Method\ServerMethod;
 
+/**
+ * A client constructed through a {@link Client}, which allows to send
+ * a {@link MinecraftRequest} to the remote server.
+ */
 class MinecraftClient
 {
     private Serializer $serializer;
@@ -25,6 +29,12 @@ class MinecraftClient
         $this->serializer = new Serializer($normalizers, [new JsonEncoder()]);
     }
 
+    /**
+     * Creates a {@link MinecraftClient}.
+     * @param Client $websocketClient Websocket client.
+     * @param string $token Bearer token used to authenticate to the server. (server.properties)
+     * @return self
+     */
     public static function create(Client $websocketClient, string $token): self {
         ServerMethod::initiate();
         $websocketClient->addHeader("Authorization", "Bearer $token");

@@ -4,6 +4,7 @@ namespace Yazor\MinecraftProtocol\Management\Method;
 
 use JetBrains\PhpStorm\ArrayShape;
 use Yazor\MinecraftProtocol\Data\ResourceLocation;
+use Yazor\MinecraftProtocol\Data\Type\Action\KickPlayer;
 use Yazor\MinecraftProtocol\Data\Type\MinecraftPlayer;
 use Yazor\MinecraftProtocol\Data\Type\ServerState;
 use Yazor\MinecraftProtocol\Data\Type\SystemMessage;
@@ -44,6 +45,13 @@ class ServerMethod
      * @var ServerMethod
      */
     public static ServerMethod $SERVER;
+
+    /**
+     * <p>Method which allows to query or kick players.</p>
+     * - {@link ProtocolPath::KICK} Applies a list of {@link KickPlayer}
+     * @var ServerMethod
+     */
+    public static ServerMethod $PLAYERS;
 
     private array $paths = [];
 
@@ -108,6 +116,9 @@ class ServerMethod
             ->withPath(ProtocolPath::STATUS, ['class' => ServerState::class])
             ->withPath(ProtocolPath::STOP, ['class' => 'bool'])
             ->withPath(ProtocolPath::SAVE, ['class' => 'bool']);
+
+        self::$PLAYERS = self::create(ResourceLocation::read("minecraft:players"), ['class' => MinecraftPlayer::class, 'list' => true])
+            ->withPath(ProtocolPath::KICK, ['class' => MinecraftPlayer::class, 'list' => true]);
 
     }
 

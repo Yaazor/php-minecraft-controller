@@ -15,6 +15,11 @@ class ResourceLocation
     private(set) string $namespace;
     private(set) string $value;
 
+    /**
+     * Constructs a ResourceLocation based on an optional namespace and path.
+     * @param string|null $namespace Optional namespace (defaults to <code>minecraft</code>)
+     * @param string $value
+     */
     public function __construct(?string $namespace, string $value) {
         $this->namespace = self::DEFAULT_NAMESPACE;
         if(!empty($namespace)) {
@@ -34,6 +39,11 @@ class ResourceLocation
         return new self($namespace, $value);
     }
 
+    /**
+     * Returns a resource location based on a separated string.
+     * @param string $value
+     * @return self
+     */
     public static function read(string $value): self {
         $split = explode(":", $value);
         $namespace = self::DEFAULT_NAMESPACE;
